@@ -113,6 +113,11 @@
       transform-origin: center;
     }
 
+    .logo-fifth {
+      transform: translateY(-10%) scale(1.0);
+      transform-origin: center;
+    }
+
     .theme-black {
       --row-bg: #000000;
       --panel-bg: transparent;
@@ -135,6 +140,10 @@
       --panel-border: rgba(0, 185, 231, 0.45);
       --text: #007da5;
       --logo-filter: none;
+    }
+
+    .theme-white-blue .logo-fifth {
+      filter: invert(48%) sepia(96%) saturate(1875%) hue-rotate(162deg) brightness(97%) contrast(101%);
     }
 
     /* Preview area */
@@ -240,7 +249,7 @@
         </article>
         <article class="panel">
           <p class="label">5</p>
-          <img class="logo logo-raw logo-png logo-last3" src="Fattest.png" alt="Fattest logo" />
+          <img class="logo logo-fifth" src="Group 376.svg" alt="Group 376 logo white on blue" />
         </article>
         <article class="panel">
           <p class="label">6</p>
@@ -273,7 +282,7 @@
         </article>
         <article class="panel">
           <p class="label">5</p>
-          <img class="logo logo-raw logo-png logo-last3" src="Fattest-3.png" alt="Fattest logo white on black" />
+          <img class="logo logo-fifth" src="Group 376.svg" alt="Group 376 logo white on black" />
         </article>
         <article class="panel">
           <p class="label">6</p>
@@ -306,7 +315,7 @@
         </article>
         <article class="panel">
           <p class="label">5</p>
-          <img class="logo logo-raw logo-png logo-last3" src="Fattest-2.png" alt="Fattest logo black on white" />
+          <img class="logo logo-fifth" src="Group 376.svg" alt="Group 376 logo black on white" />
         </article>
         <article class="panel">
           <p class="label">6</p>
@@ -339,7 +348,7 @@
         </article>
         <article class="panel">
           <p class="label">5</p>
-          <img class="logo logo-raw logo-png logo-last3" src="Fattest-1.png" alt="Fattest logo blue on white" />
+          <img class="logo logo-fifth" src="Group 376.svg" alt="Group 376 logo blue on white" />
         </article>
         <article class="panel">
           <p class="label">6</p>
@@ -372,6 +381,9 @@
         const logoFilter = img.classList.contains('logo-raw')
           ? 'none'
           : rowStyle.getPropertyValue('--logo-filter').trim();
+        const previewFilter = row.classList.contains('theme-white-blue') && img.classList.contains('logo-fifth')
+          ? 'invert(48%) sepia(96%) saturate(1875%) hue-rotate(162deg) brightness(97%) contrast(101%)'
+          : logoFilter;
 
         // Scale logos that have extra whitespace (matching panel CSS transforms)
         let scale = 1;
@@ -380,7 +392,7 @@
 
         previewArea.style.background = rowStyle.getPropertyValue('--row-bg').trim();
         previewLogo.src = img.src;
-        previewLogo.style.filter = logoFilter;
+        previewLogo.style.filter = previewFilter;
         previewLogo.style.transform = scale !== 1 ? `scale(${scale})` : '';
 
         // Flip SVG text to white on dark backgrounds
